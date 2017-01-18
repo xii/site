@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+            crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>xii — A virtual environment manager</title>
+  </head>
+  <body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">xii</a>
+          </a>
+        </div>
+          <ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">
+            <li><a href="https://docs.xii-project.org">Documentation</a></li>
+            <li><a href="https://github.com/xii/xii">Github</a></li>
+            <li><a href="https://github.com/xii/xii/issues">Issues</a></li>
+            <li><a href="#download">Download</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- Introduction -->
+    <div class="container" role="main">
+      <div class="row" style="height:100px"></div>
+      <div class="row">
+        <div class="col-md-12 visible-lg">
+          <p class="slogan">CREATE VIRTUAL ENVIRONMENTS AS YOU LIKE</p>
+        </div>
+      </div>
+      <div class="row hidden-xs" style="height:50px"></div>
+
+      <div class="row">
+        <div class="visible-sm visible-xs col-xs-4">
+          <image class="logo" src="image/logo.png">
+        </div>
+
+        <div class="col-md-5 col-xs-8 introduction">
+          <p>Create virtual environments in a simple way. Reduce complexity.</p>
+          <p>xii helps you build want you want: for development or deployment.</p>
+          <a class="btn btn-default" href="#" role="button">Start right now</a>
+        </div>
+
+        <div class="col-md-2 hidden-sm hidden-xs">
+          <image class="logo" src="image/logo.png">
+        </div>
+        <div class="col-xs-12 visible-xs visible-sm">
+          <p class="slogan">CREATE VIRTUAL ENVIRONMENTS AS YOU LIKE</p>
+        </div>
+
+        <div class="col-md-5 col-xs-11 introduction text-right">
+          <p>xii is currently in <strong>alpha</strong> state.</p>
+          <p>Nevertheless you can already test and use it.</p>
+          <p>Interested in helping xii become a great success?</p>
+          <p><a class="btn btn-default text-right" href="#" role="button">How to help!</a></p>
+        </div>
+      </div>
+
+      <div class="row" style="height:100px"></div>
+      <div class="row">
+          <p class="text-center">
+            <a class="btn btn-download" href="#download" role="button">Download now!</a>
+          </p>
+      </div>
+      <div class="row hidden-xs" style="height:50px"></div>
+      <div class="row visible-xs" style="height:30px"></div>
+    </div>
+
+
+    <!-- Example -->
+    <div class="dark">
+      <div class="container" role="main">
+      <div class="row" style="height:50px"></div>
+        <div class="row dark">
+          <div class="col-md-5">
+            <h2>xii definition example:</h2>
+            <pre class="example">
+---
+ceph:
+  type: network
+  mode: nat
+  ipv4:
+    ip: 192.168.111.1
+    dhcp:
+      start: 192.168.111.2
+      end: 192.168.111.254
+
+nodes:
+  type: node
+  count: 5
+  network: ceph
+  image: {{ image }}
+  ssh:
+    copy-key:
+      users: [ceph, root]
+  user:
+    ceph: { password: ceph }
+    root: { password: linux }
+
+keys-on-all-nodes:
+  type: distribute
+  ssh-keys:
+    exchange-all:
+      hosts: nodes
+      users: [root, ceph]
+
+provisioning:
+  type: ansible
+  inventory:
+    basic: nodes
+    mon: nodes-1
+    rgw: nodes-2
+  run: deploy-ceph.yml
+</pre>
+          </div>
+          <div class="col-md-7 introduction-dark">
+            <h1>XII IS A VIRTUAL ENVIRONMENT MANAGER</h1>
+            <p>Create virtual machines with there own network settings and let
+               them provision with just one command is xii's goal.</p>
+            <p>With libvirt and libguest xii is build on a strong and reliable
+               foundation to provide a commandline tool to rule virtual environments</p>
+            <p>It's just as easy as you can think to start:</p>
+            <code>$ xii create</code>
+            <p></p>
+            <p>Or create a more than one node and add a additional network</p>
+            <code>$ xii create --nodes nodes:3 --network ceph:nat</code>
+            <p></p>
+            <p>You can always edit the created file as you like!</p>
+            <p>Start you newly described environment with</p>
+            <code>$ xii -dimage=/path/to/image.qcow2 start</code>
+            <p></p>
+            <p>Easy right? And yes you can also hardcode the image variable or
+               load it from environment</p>
+            <h3>Want more examples?</h3>
+            <p>Just checkout xiis example repistory!</p>
+            <a class="btn btn-default" href="https://github.com/xii/examples">xii examples repository</a>
+          </div>
+        </div>
+      </div>
+      <div class="row hidden-xs" style="height:50px"></div>
+      <div class="row visible-xs" style="height:30px"></div>
+    </div>
+
+    <div class="container">
+      <div class="row" style="height:50px"></div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p class="slogan">WANT TO KNOW MORE ABOUT XII?<p>
+        <div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <h3>Install instructions</h3>
+          <p class="example-desc">Check out how to install xii on your favorite distribution</p>
+
+          <a href="#" class="btn btn-default">View install instructions</a>
+        </div>
+
+        <div class="col-md-4">
+          <h3>Documentation</h3>
+          <p class="example-desc">Read the documentation to get a deeper understanding of xii</p>
+
+          <a href="#" class="btn btn-default">Go to the documentation</a>
+        </div>
+
+        <div class="col-md-4">
+          <h3>Examples</h3>
+          <p class="example-desc">Go to the examples repository and discover examples already made ready
+             for you to test xii</p>
+          <a href="#" class="btn btn-default">Go to the examples repository</a>
+        </div>
+      </div>
+      <div class="row" style="height:200px"></div>
+    </div>
+  </body>
+</html>
